@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home Assistant on the LAN or over Tailscale is commonly served over plain http://
+     (e.g. http://homeassistant.local:8123 or http://100.x.y.z:8123), so cleartext is allowed.
+     Traffic over Tailscale is already encrypted by WireGuard. Use https:// for any
+     internet-facing (remote) URL. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

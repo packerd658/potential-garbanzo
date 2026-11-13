@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Home Panel</string>
+    <string name="settings">Settings</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="connect_via">Connect via</string>
+    <string name="mode_auto">Automatic</string>
+    <string name="mode_local">Local network</string>
+    <string name="mode_tailscale">Tailscale</string>
+    <string name="mode_remote">Remote (internet)</string>
+    <string name="route_local">Local</string>
+    <string name="route_tailscale">Tailscale</string>
+    <string name="route_remote">Remote</string>
+    <string name="retry">Retry</string>
+    <string name="open_settings">Open settings</string>
+    <string name="open_tailscale">Open Tailscale</string>
+    <string name="get_tailscale">Get Tailscale</string>
+    <string name="tailscale_not_connected">Tailscale is not connected. Turn it on to reach Home Assistant over your tailnet.</string>
+    <string name="not_configured">Add at least one Home Assistant address in Settings to get started.</string>
+    <string name="no_route">Couldn\'t reach Home Assistant at any configured address.\n\n%1$s</string>
+    <string name="load_error">Couldn\'t load %1$s\n\n%2$s</string>
+    <string name="ssl_error">The certificate for %1$s isn\'t trusted. Enable \"Allow self-signed certificates\" in Settings if this is your own server.</string>
+    <string name="switched_to">Switched to %1$s connection</string>
+    <string name="local_permission_denied">Local network access was denied, so the local address can\'t be used. Tailscale or remote access still work.</string>
+
+    <!-- Settings -->
+    <string name="pref_cat_addresses">Home Assistant addresses</string>
+    <string name="pref_local_url">Local URL</string>
+    <string name="pref_local_url_hint">http://homeassistant.local:8123</string>
+    <string name="pref_tailscale_url">Tailscale URL</string>
+    <string name="pref_tailscale_url_hint">http://homeassistant.your-tailnet.ts.net:8123 or http://100.x.y.z:8123</string>
+    <string name="pref_remote_url">Remote URL</string>
+    <string name="pref_remote_url_hint">https://example.ui.nabu.casa or https://ha.example.com</string>
+    <string name="pref_not_set">Not set</string>
+    <string name="pref_cat_connection">Connection</string>
+    <string name="pref_mode">Connection mode</string>
+    <string name="pref_self_signed">Allow self-signed certificates</string>
+    <string name="pref_self_signed_summary">Only for the local and Tailscale addresses</string>
+    <string name="pref_test">Test connections</string>
+    <string name="pref_test_summary">Check which addresses are reachable right now</string>
+    <string name="pref_tailscale_status">Tailscale status</string>
+    <string name="tailscale_connected">Connected — tap to open Tailscale</string>
+    <string name="tailscale_disconnected">Not connected — tap to open Tailscale</string>
+    <string name="tailscale_missing">Tailscale app not installed — tap to get it</string>
+    <string name="test_results">Connection test</string>
+    <string name="testing">Testing…</string>
+    <string name="ok">OK</string>
+    <string name="reachable">reachable</string>
+    <string name="unreachable">unreachable</string>
+</resources>

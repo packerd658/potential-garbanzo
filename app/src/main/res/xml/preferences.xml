@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/pref_cat_addresses" app:iconSpaceReserved="false">
+        <EditTextPreference
+            app:key="local_url"
+            app:title="@string/pref_local_url"
+            app:dialogMessage="@string/pref_local_url_hint"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            app:key="tailscale_url"
+            app:title="@string/pref_tailscale_url"
+            app:dialogMessage="@string/pref_tailscale_url_hint"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            app:key="remote_url"
+            app:title="@string/pref_remote_url"
+            app:dialogMessage="@string/pref_remote_url_hint"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_cat_connection" app:iconSpaceReserved="false">
+        <ListPreference
+            app:key="mode"
+            app:title="@string/pref_mode"
+            app:defaultValue="auto"
+            app:entries="@array/mode_entries"
+            app:entryValues="@array/mode_values"
+            app:useSimpleSummaryProvider="true"
+            app:iconSpaceReserved="false" />
+        <SwitchPreferenceCompat
+            app:key="allow_self_signed"
+            app:title="@string/pref_self_signed"
+            app:summary="@string/pref_self_signed_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false" />
+        <Preference
+            app:key="tailscale_status"
+            app:title="@string/pref_tailscale_status"
+            app:iconSpaceReserved="false" />
+        <Preference
+            app:key="test"
+            app:title="@string/pref_test"
+            app:summary="@string/pref_test_summary"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

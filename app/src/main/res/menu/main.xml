@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_reconnect"
+        android:title="@string/reconnect"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_connect_via"
+        android:title="@string/connect_via"
+        app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/mode_auto" android:title="@string/mode_auto" />
+                <item android:id="@+id/mode_local" android:title="@string/mode_local" />
+                <item android:id="@+id/mode_tailscale" android:title="@string/mode_tailscale" />
+                <item android:id="@+id/mode_remote" android:title="@string/mode_remote" />
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+</menu>
