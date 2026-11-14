@@ -1,6 +1,8 @@
 # Home Panel
 
-A small Android app for your Home Assistant server. It can connect three ways:
+A small Android app for your Home Assistant server. Project website: https://packerd658.github.io/potential-garbanzo/
+
+ It can connect three ways:
 
 | Connection | Example address | When it's used |
 |---|---|---|

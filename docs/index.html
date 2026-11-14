@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Panel</title>
+<meta name="description" content="Android app for Home Assistant that connects locally, over Tailscale, or remotely, and switches automatically when your network changes.">
+<meta name="theme-color" content="#0b3d5c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 108'%3E%3Ccircle cx='54' cy='54' r='54' fill='%230b3d5c'/%3E%3Cpath fill='%23fff' d='M54 30 80 52h-6v26H34V52h-6z'/%3E%3Ccircle cx='54' cy='56' r='7' fill='%2303a9f4'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --text: #14202b;
+    --muted: #55636f;
+    --line: #dde3e8;
+    --brand: #0288d1;
+    --brand-ink: #ffffff;
+    --deep: #0b3d5c;
+    --local: #2e7d32;
+    --tailscale: #5e35b1;
+    --remote: #0277bd;
+    --chip-bg: #e8f4fb;
+    --code-bg: #eef2f5;
+    --shadow: 0 1px 2px rgba(16, 32, 48, .06), 0 8px 24px rgba(16, 32, 48, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1419;
+      --surface: #151f27;
+      --text: #e6edf2;
+      --muted: #9aaab6;
+      --line: #263540;
+      --brand: #4fc3f7;
+      --brand-ink: #062233;
+      --deep: #082c42;
+      --local: #81c784;
+      --tailscale: #b39ddb;
+      --remote: #4fc3f7;
+      --chip-bg: #12303f;
+      --code-bg: #1b2833;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--brand); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 640px) { .wrap { padding: 0 28px; } }
+
+  /* Header */
+  header.top { border-bottom: 1px solid var(--line); background: var(--surface); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; }
+  .brand svg { width: 30px; height: 30px; flex: none; }
+  nav.links { display: flex; gap: 18px; font-size: 15px; }
+  nav.links a { color: var(--muted); text-decoration: none; }
+  nav.links a:hover { color: var(--text); }
+  @media (max-width: 560px) { nav.links .opt { display: none; } }
+
+  /* Hero */
+  .hero { padding: 56px 0 40px; }
+  .hero .wrap { display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 860px) { .hero .wrap { grid-template-columns: 1.15fr .85fr; } }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--brand); background: var(--chip-bg); padding: 4px 10px; border-radius: 999px; }
+  h1 { font-size: clamp(32px, 6vw, 50px); line-height: 1.1; margin: 16px 0 14px; letter-spacing: -.02em; }
+  .lede { font-size: 18px; color: var(--muted); margin: 0 0 26px; max-width: 34em; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid transparent; }
+  .btn.primary { background: var(--brand); color: var(--brand-ink); }
+  .btn.primary:hover { filter: brightness(1.07); }
+  .btn.ghost { border-color: var(--line); color: var(--text); background: var(--surface); }
+  .btn.ghost:hover { border-color: var(--muted); }
+  .btn svg { width: 18px; height: 18px; }
+  .meta { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+  /* Phone mock */
+  .phone { justify-self: center; width: min(300px, 100%); aspect-ratio: 9 / 18.5; background: var(--deep); border-radius: 36px; padding: 12px; box-shadow: var(--shadow); }
+  .screen { height: 100%; border-radius: 26px; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; }
+  .bar { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
+  .bar b { display: block; font-size: 14px; }
+  .route { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--local); transition: background .4s; }
+  .tiles { padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tile { border: 1px solid var(--line); border-radius: 14px; padding: 12px; font-size: 12px; color: var(--muted); }
+  .tile strong { display: block; color: var(--text); font-size: 14px; margin-top: 4px; }
+  .tile.wide { grid-column: span 2; }
+  .toast { margin: auto 14px 16px; background: var(--text); color: var(--bg); font-size: 12px; border-radius: 10px; padding: 10px 12px; opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+  .toast.show { opacity: 1; transform: none; }
+
+  /* Sections */
+  section { padding: 48px 0; }
+  section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  h2 { font-size: clamp(24px, 4vw, 32px); letter-spacing: -.01em; margin: 0 0 8px; }
+  .sub { color: var(--muted); margin: 0 0 28px; max-width: 40em; }
+
+  .routes { display: grid; gap: 16px; }
+  @media (min-width: 760px) { .routes { grid-template-columns: repeat(3, 1fr); } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+  section.alt .card { background: var(--bg); box-shadow: none; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .card p { margin: 0 0 12px; color: var(--muted); }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
+  .when { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: step; }
+  .flow li { counter-increment: step; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+  .flow li::before { content: counter(step); width: 30px; height: 30px; border-radius: 50%; background: var(--chip-bg); color: var(--brand); font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+  .flow b { display: block; }
+  .flow span { color: var(--muted); }
+
+  .features { display: grid; gap: 14px; }
+  @media (min-width: 640px) { .features { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 940px) { .features { grid-template-columns: repeat(3, 1fr); } }
+  .feature h3 { font-size: 16px; margin: 0 0 4px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .two { display: grid; gap: 28px; }
+  @media (min-width: 860px) { .two { grid-template-columns: 1fr 1fr; } }
+  .req { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .req th, .req td { text-align: left; padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .req th { color: var(--muted); font-weight: 500; width: 42%; padding-right: 12px; }
+
+  details { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--surface); }
+  details + details { margin-top: 10px; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { color: var(--muted); margin: 10px 0 0; }
+
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: reduce) { .dot, .toast { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 108 108" aria-hidden="true"><circle cx="54" cy="54" r="54" fill="#0b3d5c"/><path fill="#fff" d="M54 30 80 52h-6v26H34V52h-6z"/><circle cx="54" cy="56" r="7" fill="#03a9f4"/></svg>
+      Home Panel
+    </a>
+    <nav class="links">
+      <a class="opt" href="#connections">Connections</a>
+      <a class="opt" href="#tailscale">Tailscale setup</a>
+      <a href="https://github.com/packerd658/potential-garbanzo">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Android 7.0 – Android 17</span>
+        <h1>Your Home Assistant, from anywhere.</h1>
+        <p class="lede">Home Panel opens your Home Assistant dashboard on Android and connects the best way available: your home network, Tailscale, or the internet. When you leave the house or switch Tailscale on, it switches too, and keeps you on the same page.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://github.com/packerd658/potential-garbanzo/releases/latest">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zm7-18-1.4 1.4L11 3.8V14l-3.6-3.6L6 11.8 12 17.8l6-6-1.4-1.4L13 14V3.8z" transform="translate(0 0)"/></svg>
+            Download APK
+          </a>
+          <a class="btn ghost" href="https://github.com/packerd658/potential-garbanzo">View source</a>
+        </div>
+        <p class="meta">Free and open source. No account, no tracking: it talks only to your own server.</p>
+      </div>
+
+      <div class="phone" aria-label="Illustration of the app switching from Local to Tailscale">
+        <div class="screen">
+          <div class="bar">
+            <b>Home Panel</b>
+            <span class="route"><span class="dot" id="dot"></span><span id="route">Local · Automatic</span></span>
+          </div>
+          <div class="tiles">
+            <div class="tile">Living room<strong>21.5 °C</strong></div>
+            <div class="tile">Front door<strong>Locked</strong></div>
+            <div class="tile">Kitchen lights<strong>On</strong></div>
+            <div class="tile">Garage<strong>Closed</strong></div>
+            <div class="tile wide">Energy today<strong>8.4 kWh</strong></div>
+          </div>
+          <div class="toast" id="toast">Switched to Tailscale connection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="alt" id="connections">
+    <div class="wrap">
+      <h2>Three ways in, one app</h2>
+      <p class="sub">Enter any of these in Settings. You don't need all three. In automatic mode the app tests every address at once and uses the best one that answers.</p>
+      <div class="routes">
+        <div class="card">
+          <h3><span class="swatch" style="background:var(--local)"></span>Local</h3>
+          <p>Straight to your server over home Wi‑Fi or Ethernet. Fastest, and works even when your internet is down.</p>
+          <code>http://homeassistant.local:8123</code>
+          <p class="when">Used first when you're on Wi‑Fi or Ethernet.</p>
+        </div>
+        <div class="card">
+          <h3><span class="swatch" style="background:var(--tailscale)"></span>Tailscale</h3>
+          <p>A private, encrypted link to your home over your tailnet. Nothing exposed to the internet.</p>
+          <code>http://homeassistant.&lt;tailnet&gt;.ts.net:8123</code>
+          <p class="when">Used when the Tailscale VPN is on.</p>
+        </div>
+        <div class="card">
+          <h3><span class="swatch" style="background:var(--remote)"></span>Remote</h3>
+          <p>Your public address, such as Home Assistant Cloud or your own domain behind HTTPS.</p>
+          <code>https://ha.example.com</code>
+          <p class="when">Used when neither of the others answers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap two">
+      <div>
+        <h2>How automatic mode decides</h2>
+        <p class="sub">You can also lock it to one connection from the ⋮ menu → <em>Connect via</em>.</p>
+      </div>
+      <ol class="flow">
+        <li><div><b>Check every address at once</b><span>Each one gets a quick test, all in parallel, so you're not left waiting on a dead address.</span></div></li>
+        <li><div><b>Pick the best one that answers</b><span>Local on Wi‑Fi, then Tailscale when it's on, then Remote, then anything else that responds.</span></div></li>
+        <li><div><b>Watch for network changes</b><span>Leave home, lose Wi‑Fi, or toggle Tailscale and it re-checks within seconds.</span></div></li>
+        <li><div><b>Switch without losing your place</b><span>The dashboard you had open reopens on the new address.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>Built for how you actually use it</h2>
+      <p class="sub">Small app, few settings, no surprises.</p>
+      <div class="features">
+        <div class="card feature"><h3>Tailscale aware</h3><p>Detects when the Tailscale VPN is up and shows an <em>Open Tailscale</em> button when you need to switch it on.</p></div>
+        <div class="card feature"><h3>Ready for Android 17</h3><p>Asks for Android 17's new local network permission, so your local address keeps working.</p></div>
+        <div class="card feature"><h3>Test connections</h3><p>One tap in Settings shows which of your addresses are reachable right now, and why not if they aren't.</p></div>
+        <div class="card feature"><h3>Self-signed certificates</h3><p>Optional, and only for your local and Tailscale addresses. Your remote address always needs a valid certificate.</p></div>
+        <div class="card feature"><h3>Uploads work</h3><p>Upload backups and images from your phone, just like in the browser.</p></div>
+        <div class="card feature"><h3>Stays out of the way</h3><p>Edge-to-edge layout, back gesture support, and links to other sites open in your browser.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tailscale">
+    <div class="wrap two">
+      <div>
+        <h2>Set up Tailscale</h2>
+        <p class="sub">Home Panel uses the Tailscale app you already have. It doesn't run a second VPN of its own.</p>
+        <ol class="flow">
+          <li><div><b>Put Home Assistant on your tailnet</b><span>For example with the Tailscale add-on for Home Assistant.</span></div></li>
+          <li><div><b>Install Tailscale on your phone</b><span>Sign in to the same tailnet. <a href="https://play.google.com/store/apps/details?id=com.tailscale.ipn">Get it on Google Play</a>.</span></div></li>
+          <li><div><b>Add the address in Home Panel</b><span>Settings → Tailscale URL: the MagicDNS name, e.g. <code>http://homeassistant.&lt;tailnet&gt;.ts.net:8123</code>, or its <code>100.x.y.z</code> address. If you use Tailscale's HTTPS, use <code>https://homeassistant.&lt;tailnet&gt;.ts.net</code>.</span></div></li>
+        </ol>
+      </div>
+      <div>
+        <h2>Requirements</h2>
+        <table class="req">
+          <tr><th>Android</th><td>7.0 (API 24) through 17 (API 37)</td></tr>
+          <tr><th>Server</th><td>Any Home Assistant install you can reach in a browser</td></tr>
+          <tr><th>Tailscale</th><td>Optional; the Tailscale Android app, signed in to your tailnet</td></tr>
+          <tr><th>Install</th><td>Download the APK from <a href="https://github.com/packerd658/potential-garbanzo/releases/latest">Releases</a> and open it. Allow “Install unknown apps” if your phone asks.</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <details>
+        <summary>Why does the app allow plain http:// addresses?</summary>
+        <p>Home Assistant on a home network is usually served over plain http, and traffic over Tailscale is already encrypted end to end. For an address on the public internet, use https.</p>
+      </details>
+      <details>
+        <summary>It says Tailscale isn't connected, but it is.</summary>
+        <p>Make sure Tailscale is routing this app's traffic. If you use Tailscale's per-app settings, include Home Panel. Then tap Reconnect in the ⋮ menu.</p>
+      </details>
+      <details>
+        <summary>My local address stopped working on Android 17.</summary>
+        <p>Android 17 asks before apps can reach devices on your home network. Allow it in system Settings → Apps → Home Panel → Permissions (“Nearby devices” / local network).</p>
+      </details>
+      <details>
+        <summary>Does it send my data anywhere?</summary>
+        <p>No. It connects only to the addresses you enter. There's no analytics and no account.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Home Panel is an independent project, not affiliated with Home Assistant or Tailscale.</span>
+    <a href="https://github.com/packerd658/potential-garbanzo/blob/HEAD/LICENSE">License</a>
+  </div>
+</footer>
+
+<script>
+  // Small demo loop for the phone illustration: Local -> Tailscale -> Remote -> Local.
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var steps = [
+      { label: 'Local · Automatic', color: 'var(--local)', msg: 'Switched to Local connection' },
+      { label: 'Tailscale · Automatic', color: 'var(--tailscale)', msg: 'Switched to Tailscale connection' },
+      { label: 'Remote · Automatic', color: 'var(--remote)', msg: 'Switched to Remote connection' }
+    ];
+    var i = 0, dot = document.getElementById('dot'), route = document.getElementById('route'), toast = document.getElementById('toast');
+    setInterval(function () {
+      i = (i + 1) % steps.length;
+      dot.style.background = steps[i].color;
+      route.textContent = steps[i].label;
+      toast.textContent = steps[i].msg;
+      toast.classList.add('show');
+      setTimeout(function () { toast.classList.remove('show'); }, 1800);
+    }, 3500);
+  })();
+</script>
+</body>
+</html>
