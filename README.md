@@ -12,7 +12,24 @@ A small Android app for your Home Assistant server. Project website: https://pac
 
 Runs on **Android 7.0 (API 24) through Android 17 (API 37)**; it targets API 37.
 
-## Features
+## The app
+
+A dark, native dashboard with five tabs:
+
+- **Home**: greeting and how many devices are on, a climate card (current temperature, heat/cool
+  setpoints you can tap to change, outside temperature), a weather card (tap for the 5-day forecast),
+  and your pinned favourites.
+- **Devices**: every light, switch, fan, cover, lock, media player, scene and script, with search,
+  on/off switches and a star to pin it to Home.
+- **Cameras**: live snapshots, refreshed every few seconds.
+- **Status**: which connection is in use, Tailscale, server version, and anything unavailable.
+  *Open full Home Assistant* shows the regular web dashboard.
+- **Settings**: addresses, connection mode, and your account.
+
+Sign in with your normal Home Assistant login (the app shows Home Assistant's own login page),
+or paste a long-lived access token in Settings instead.
+
+## Connection features
 
 - **Automatic mode** (default): checks every address you've set at the same time and picks
   the best one that answers: Local when you're on Wi‑Fi, then Tailscale when it's on, then Remote.
@@ -26,7 +43,7 @@ Runs on **Android 7.0 (API 24) through Android 17 (API 37)**; it targets API 37.
 - Plain `http://` is allowed (common on the LAN and over Tailscale, which already encrypts traffic).
   An optional switch accepts self-signed certificates, for the local and Tailscale addresses only.
 - *Test connections* in Settings shows which addresses are reachable right now.
-- File uploads (e.g. backups, images), edge-to-edge layout, predictive back, external links open in your browser.
+- The full web dashboard supports file uploads (e.g. backups, images); external links open in your browser.
 
 ## Tailscale setup
 
@@ -44,6 +61,7 @@ Needs JDK 17+ and the Android SDK with `platforms;android-37.0`.
 
 ```sh
 ./gradlew assembleRelease   # app/build/outputs/apk/release/app-release.apk
+./gradlew :app:testDebugUnitTest --tests '*ScreenshotTest*'   # renders every tab to app/build/screenshots/
 ```
 
 GitHub Actions builds the APK on every push (see the **home-panel-apk** artifact on each run).

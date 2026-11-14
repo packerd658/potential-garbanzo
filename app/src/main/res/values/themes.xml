@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.HomePanel" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/brand</item>
+    <style name="Theme.HomePanel" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/accent_blue</item>
+        <item name="colorOnPrimary">@color/text</item>
+        <item name="colorPrimaryContainer">@color/nav_indicator</item>
+        <item name="colorSecondary">@color/accent_blue</item>
+        <item name="colorAccent">@color/accent_blue</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="colorSurface">@color/bg</item>
+        <item name="colorSurfaceContainer">@color/card</item>
+        <item name="colorSurfaceContainerHigh">@color/card</item>
+        <item name="colorSurfaceContainerHighest">@color/chip</item>
+        <item name="colorOnSurface">@color/text</item>
+        <item name="colorOnSurfaceVariant">@color/muted</item>
+        <item name="materialCardViewStyle">@style/Widget.HomePanel.Card</item>
+    </style>
+
+    <style name="Widget.HomePanel.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/card</item>
+        <item name="cardCornerRadius">22dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- Rounded dark pill buttons, as in "Edit" and "Choose favourites". -->
+    <style name="Widget.HomePanel.Pill" parent="Widget.Material3.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/chip</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="iconTint">@color/text</item>
+        <item name="iconSize">16dp</item>
+        <item name="iconPadding">6dp</item>
+        <item name="cornerRadius">40dp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.HomePanel.NavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/nav_indicator</item>
+    </style>
+
+    <style name="TextAppearance.HomePanel.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="TextAppearance.HomePanel.CardTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.HomePanel.Muted" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/muted</item>
     </style>
 </resources>

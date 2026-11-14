@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="24dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/minus"
+        style="@style/Widget.HomePanel.Pill"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="0dp"
+        android:text="−"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/text"
+        android:textSize="44sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/plus"
+        style="@style/Widget.HomePanel.Pill"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="0dp"
+        android:text="+"
+        android:textSize="24sp" />
+</LinearLayout>

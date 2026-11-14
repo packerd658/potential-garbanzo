@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Multi-colour weather icon (not tinted). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FFC94D" android:pathData="M12,7a5,5 0 1,0 0,10a5,5 0 1,0 0,-10z"/>
+    <group android:pivotX="12" android:pivotY="12"><path android:fillColor="#FFC94D" android:pathData="M11.2,1h1.6v3.2h-1.6zM11.2,19.8h1.6V23h-1.6zM1,11.2h3.2v1.6H1zM19.8,11.2H23v1.6h-3.2z"/></group>
+    <group android:pivotX="12" android:pivotY="12" android:rotation="45"><path android:fillColor="#FFC94D" android:pathData="M11.2,1h1.6v3.2h-1.6zM11.2,19.8h1.6V23h-1.6zM1,11.2h3.2v1.6H1zM19.8,11.2H23v1.6h-3.2z"/></group>
+</vector>

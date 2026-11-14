@@ -47,4 +47,113 @@
     <string name="ok">OK</string>
     <string name="reachable">reachable</string>
     <string name="unreachable">unreachable</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Home</string>
+    <string name="tab_devices">Devices</string>
+    <string name="tab_cameras">Cameras</string>
+    <string name="tab_status">Status</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="greeting_morning">Good morning</string>
+    <string name="greeting_afternoon">Good afternoon</string>
+    <string name="greeting_evening">Good evening</string>
+    <string name="greeting_night">Good night</string>
+    <plurals name="devices_on">
+        <item quantity="one">%d device on</item>
+        <item quantity="other">%d devices on</item>
+    </plurals>
+    <string name="edit">Edit</string>
+    <string name="outside_temperature">Outside Temperature</string>
+    <string name="high_low">H: %1$s  L: %2$s</string>
+    <string name="pin_title">Pin what you use most</string>
+    <string name="pin_body">Star cameras, devices and scenes to see them here. Everything else stays on the Devices and Cameras tabs.</string>
+    <string name="choose_favourites">Choose favourites</string>
+    <string name="all_devices">All devices</string>
+    <string name="favourites">Favourites</string>
+    <string name="remove_favourite">Remove %1$s from favourites?</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="heat_to">Heat to</string>
+    <string name="cool_to">Cool to</string>
+    <string name="target">Target</string>
+    <string name="confirm_unlock">Unlock %1$s?</string>
+    <string name="unlock">Unlock</string>
+    <string name="action_failed">Couldn\'t do that: %1$s</string>
+
+    <!-- Connection states -->
+    <string name="status_connecting">Connecting to Home Assistant…</string>
+    <string name="status_login">Log in to Home Assistant to see your devices.</string>
+    <string name="log_in">Log in</string>
+    <string name="log_out">Log out</string>
+    <string name="not_connected">Not connected</string>
+    <string name="connection_closed">Connection closed</string>
+    <string name="login_failed">Login didn\'t complete. Please try again.</string>
+
+    <!-- Devices & cameras -->
+    <string name="search">Search</string>
+    <string name="no_devices">No devices yet.</string>
+    <string name="no_cameras">No cameras found in Home Assistant.</string>
+    <string name="favourite">Favourite</string>
+    <string name="domain_light">Lights</string>
+    <string name="domain_switch">Switches</string>
+    <string name="domain_fan">Fans</string>
+    <string name="domain_climate">Climate</string>
+    <string name="domain_cover">Blinds &amp; doors</string>
+    <string name="domain_lock">Locks</string>
+    <string name="domain_media">Media</string>
+    <string name="domain_vacuum">Vacuums</string>
+    <string name="domain_input_boolean">Helpers</string>
+    <string name="domain_scene">Scenes</string>
+    <string name="domain_script">Scripts</string>
+    <string name="domain_button">Buttons</string>
+    <string name="domain_camera">Cameras</string>
+    <string name="domain_sensor">Sensors</string>
+    <string name="domain_other">Other</string>
+    <string name="state_on">On</string>
+    <string name="state_off">Off</string>
+    <string name="state_on_pct">On · %1$d%%</string>
+    <string name="state_unavailable">Unavailable</string>
+    <string name="state_tap_to_run">Tap to run</string>
+    <string name="hvac_heat_cool">Heat/Cool</string>
+    <string name="hvac_heat">Heat</string>
+    <string name="hvac_cool">Cool</string>
+    <string name="hvac_auto">Auto</string>
+    <string name="hvac_dry">Dry</string>
+    <string name="hvac_fan">Fan</string>
+    <string name="hvac_off">Off</string>
+
+    <!-- Status -->
+    <string name="connection">Connection</string>
+    <string name="server">Server</string>
+    <plurals name="entity_count">
+        <item quantity="one">%d entity</item>
+        <item quantity="other">%d entities</item>
+    </plurals>
+    <string name="needs_attention">Needs attention</string>
+    <plurals name="unavailable_count">
+        <item quantity="one">%d entity unavailable</item>
+        <item quantity="other">%d entities unavailable</item>
+    </plurals>
+    <string name="all_good">Everything is available.</string>
+    <string name="open_full_dashboard">Open full Home Assistant</string>
+    <string name="connected_via">Connected via %1$s</string>
+    <string name="tailscale">Tailscale</string>
+    <string name="tailscale_on">Connected</string>
+    <string name="tailscale_off">Not connected</string>
+    <string name="tailscale_not_installed">Not installed</string>
+
+    <!-- Settings: account -->
+    <string name="pref_cat_account">Account</string>
+    <string name="pref_account">Home Assistant account</string>
+    <string name="account_logged_in">Logged in — tap to log out</string>
+    <string name="account_token">Using a long-lived access token</string>
+    <string name="account_logged_out">Not logged in — tap to log in</string>
+    <string name="pref_token">Long-lived access token (optional)</string>
+    <string name="pref_token_summary">Instead of logging in. Create one in Home Assistant under your profile → Security.</string>
+    <string name="pref_token_set">Token set</string>
+    <string name="confirm_logout">Log out of Home Assistant on this phone?</string>
+    <string name="about">About</string>
+    <string name="version">Version</string>
 </resources>

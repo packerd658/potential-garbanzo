@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="brand">#03A9F4</color>
     <color name="launcher_bg">#0B3D5C</color>
-    <color name="banner_bg">#FFF3CD</color>
-    <color name="banner_fg">#5C4400</color>
+
+    <!-- Dark dashboard palette -->
+    <color name="bg">#0B0B0D</color>
+    <color name="card">#1C1C1F</color>
+    <color name="card_climate">#13263A</color>
+    <color name="chip_climate">#21384F</color>
+    <color name="chip">#2C2C30</color>
+    <color name="text">#FFFFFF</color>
+    <color name="muted">#9C9CA3</color>
+    <color name="accent_blue">#3D8BFF</color>
+    <color name="accent_orange">#FF8A3D</color>
+    <color name="active">#FFC14D</color>
+    <color name="active_bg">#3A2F14</color>
+    <color name="nav_bg">#141416</color>
+    <color name="nav_indicator">#1F2B3D</color>
+
+    <color name="banner_bg">#3D3200</color>
+    <color name="banner_fg">#FFE59A</color>
 </resources>

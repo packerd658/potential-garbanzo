@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/tab_home" android:icon="@drawable/ic_home" android:title="@string/tab_home" />
+    <item android:id="@+id/tab_devices" android:icon="@drawable/ic_devices" android:title="@string/tab_devices" />
+    <item android:id="@+id/tab_cameras" android:icon="@drawable/ic_videocam" android:title="@string/tab_cameras" />
+    <item android:id="@+id/tab_status" android:icon="@drawable/ic_status" android:title="@string/tab_status" />
+    <item android:id="@+id/tab_settings" android:icon="@drawable/ic_settings" android:title="@string/tab_settings" />
+</menu>

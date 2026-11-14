@@ -11,8 +11,8 @@ android {
         // Android 7.0 (API 24) through Android 17 (API 37)
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     buildTypes {
@@ -31,8 +31,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -44,4 +49,11 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.webkit:webkit:1.18.0")
     implementation("com.google.android.material:material:1.14.0")
+    implementation("androidx.fragment:fragment-ktx:1.9.1")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("com.squareup.okhttp3:okhttp:5.5.1")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.18")
+    testImplementation("androidx.test:core-ktx:1.7.0")
 }
