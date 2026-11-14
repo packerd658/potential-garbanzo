@@ -44,7 +44,14 @@ Needs JDK 17+ and the Android SDK with `platforms;android-37.0`.
 ./gradlew assembleRelease   # app/build/outputs/apk/release/app-release.apk
 ```
 
-GitHub Actions builds both APKs on every push (see the **home-panel-apk** artifact on each run).
+GitHub Actions builds the APK on every push (see the **home-panel-apk** artifact on each run).
+Pushing a version tag publishes it as a GitHub Release:
+
+```sh
+git tag v1.0.1 && git push origin v1.0.1
+```
+
+Bump `versionCode` and `versionName` in `app/build.gradle.kts` first, or phones won't offer it as an update.
 
 The release build is signed with the debug key so it installs directly. Set up your own signing
 key before distributing it.
